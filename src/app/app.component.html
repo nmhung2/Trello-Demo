@@ -1,0 +1,17 @@
+<div class="navbar">
+  <h1 class="brand">Trello Demo / <small>V1</small></h1>
+  <ul>
+    <li
+      routerLink=""
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Todo
+    </li>
+    <li routerLink="/wt" routerLinkActive="active-link">Timezone</li>
+  </ul>
+</div>
+
+<div class="interface">
+  <router-outlet></router-outlet>
+</div>
