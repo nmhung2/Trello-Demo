@@ -1,0 +1,141 @@
+<body>
+  <div class="clock">
+    <ul class="clock__marks">
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+      <li class="nth-child"></li>
+    </ul>
+
+    <div class="brand">CLOCK</div>
+    <div class="clock__hands">
+      <div
+        class="clock__hand clock__hand--second"
+        [ngStyle]="{ transform: 'rotate(' + sec_rotation + 'deg)' }"
+      ></div>
+      <div
+        class="clock__hand clock__hand--hour"
+        [ngStyle]="{ transform: 'rotate(' + hr_rotation + 'deg)' }"
+      ></div>
+      <div
+        class="clock__hand clock__hand--minute"
+        [ngStyle]="{ transform: 'rotate(' + min_rotation + 'deg)' }"
+      ></div>
+    </div>
+  </div>
+
+  <div class="time-zone">
+    <form #f="ngForm">
+      <div class="form-group">
+        <label>Select time zone: </label>
+        <select
+          name="timeZone"
+          [ngModel]="selectedTz"
+          (ngModelChange)="timeZoneChanged($event)"
+        >
+          <option *ngFor="let tz of tzNames" [value]="tz">
+            {{ tz }}
+          </option></select
+        ><span> {{ tzNames.length }}</span>
+      </div>
+      <div class="form-group">
+        <label>Select language: </label>
+        <select
+          name="locale"
+          [ngModel]="selectedLocale"
+          (ngModelChange)="changeLocale($event)"
+        >
+          <option *ngFor="let locale of locales" [value]="locale">
+            {{ locale }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <br />
+  <div>
+    Tenant/Device time zone: <strong>{{ selectedTz }}</strong>
+  </div>
+  <div>
+    Date displayed in: <strong>{{ displayTz }}</strong>
+  </div>
+  <div>
+    Unformated: <strong>{{ a }}</strong>
+  </div>
+  <div>
+    Formated: <strong>{{ aFormat }}</strong>
+  </div>
+  <div>
+    Date formated: <strong>{{ aDateFormat }}</strong>
+  </div>
+  <div>
+    Time formated: <strong>{{ aTimeFormat }}</strong>
+  </div>
+  <div>
+    Special format: <strong>{{ aSpecialFormat }}</strong>
+  </div>
+  <br />
+  <div>
+    <div *ngFor="let form of allFormats">
+      {{ formats(form) }}
+    </div>
+  </div>
+
+</body>
+
