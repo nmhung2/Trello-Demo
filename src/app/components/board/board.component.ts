@@ -75,7 +75,11 @@ export class BoardComponent implements OnInit {
   **********************/
   addListAction(): void {
     let listName = prompt('New coloum');
-    this.boardService.addList(listName);
+    if (listName != null) {
+      if (listName.length > 0) {
+        this.boardService.addList(listName);
+      }
+    }
   }
 
   editTitleList(list: List): void {

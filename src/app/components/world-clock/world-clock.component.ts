@@ -11,8 +11,6 @@ import * as moment from 'moment';
   styleUrls: ['./world-clock.component.css'],
 })
 export class WorldClockComponent implements OnInit {
-
-
   public tzNames: string[];
   public selectedTz: string;
 
@@ -29,22 +27,16 @@ export class WorldClockComponent implements OnInit {
   public aTimeFormat: string;
   public aSpecialFormat: string;
 
-
   private format = 'LLL Z z';
   private dateFormat = 'L';
   public timeFormat = 'LTS';
 
   public allFormats = [
-    'LT', // 12:32 PM
     'LT (UTC Z)', // 12:32 PM -08:00
     'LTS', // 12:32:18 PM
-    'LTS (UTC Z)', // 12:32:18 PM -08:00
     'HH:mm:ss.SSS',
-    'HH:mm:ss.SSS (UTC Z)',
     'L', // 10/05/2018
-    'LL', // October 5, 2018
     'LLL', // October 5, 2018 12:32 PM
-    'LLL (UTC Z)', // 12:32 PM -08:00
     'LLLL', // Friday, October 5, 2018 12:32 PM
     'LLLL (UTC Z)',
   ];
@@ -52,7 +44,6 @@ export class WorldClockComponent implements OnInit {
   public locales = ['en', 'vi'];
 
 
-  //only for visuals
   constructor(
     @Inject('TimeZoneService') private timeZoneService: TimeZoneService
   ) {
@@ -61,6 +52,9 @@ export class WorldClockComponent implements OnInit {
     this.changeLocale('vi');
   }
 
+    /******************
+    TIMEZONE FORMAT
+  *******************/
   public timeZoneChanged(timeZone: string): void {
     console.log(timeZone);
     this.selectedTz = timeZone;
@@ -79,7 +73,6 @@ export class WorldClockComponent implements OnInit {
   }
 
   public updateTime(timeZone: string) {
-
     this.date = moment().utc();
     this.fromNow = this.date.fromNow();
 
@@ -92,6 +85,9 @@ export class WorldClockComponent implements OnInit {
 
     this.timeZoneService.setTenantTimeZone(this.selectedTz);
 
+    this.hr = this.a.hour();
+    this.min = this.a.minute();
+    this.sec = this.a.second();
   }
 
   public applySpecialFormat(dateTime: moment.Moment): string {
@@ -99,23 +95,37 @@ export class WorldClockComponent implements OnInit {
     let offset = dateTime.utcOffset();
     return special + ' ' + dateTime.tz();
   }
-  d : Moment;
-  hr = 0;
-  min = 0;
-  sec = 0;
-  hr_rotation ;
+
+
+    /******************
+    ANALOG CLOCK
+  *******************/
+  d: Moment;
+  hr;
+  min;
+  sec;
+  hr_rotation;
   min_rotation;
   sec_rotation;
 
   ngOnInit() {
     setInterval(() => {
       this.d = moment(); //object of date()
-      this.hr = this.d.hours();
-      this.min = this.d.minutes();
-      this.sec = this.d.seconds();
-      this.hr_rotation = 30 * this.hr + this.min / 2; //converting current time
+      this.hr_rotation = 30 * this.hr + this.min / 2;
       this.min_rotation = 6 * this.min;
       this.sec_rotation = 6 * this.sec;
+      this.sec = this.sec + 1; // move clockwise
+      if (this.sec > 60) {
+        this.sec = 0;
+        this.min = this.min + 1;
+      }
+      if (this.min > 60) {
+        this.min = 0;
+        this.hr = this.hr + 1;
+      }
+      if (this.hr > 24) {
+        this.hr = 0;
+      }
     }, 1000);
   }
 }
